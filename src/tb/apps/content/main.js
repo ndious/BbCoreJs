@@ -19,6 +19,7 @@
 
 require.config({
     paths: {
+        'app.content': 'src/tb/apps/content',
 
         //Controllers
         'content.main.controller': 'src/tb/apps/content/controllers/main.controller',

@@ -150,6 +150,7 @@ define(
             contributionIndexAction: function () {
                 var self = this;
                 Core.Scope.register('contribution', 'block');
+                DndManager.initDnD();
                 if (this.contribution_loaded !== true) {
                     ContentRepository.findCategories().done(function (categories) {
                         var view = new ContributionIndexView({'categories': categories});
@@ -179,15 +180,15 @@ define(
             listenDOMService: function (definitions) {
                 DefinitionManager.setDefinitions(definitions);
 
+                console.log('before contributing');
                 Core.Scope.subscribe('contribution', function () {
-                    DndManager.enable(true);
+                    DndManager.bindEvents();
                     MouseEventManager.enable(true);
                 }, function () {
-                    DndManager.enable(false);
+                    DndManager.unbindEvents();
                     MouseEventManager.enable(false);
                 });
 
-                DndManager.listen();
                 MouseEventManager.listen();
             }
         });

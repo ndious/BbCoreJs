@@ -33,6 +33,7 @@ define(['jsclass'], function () {
          * Find element in elements with id
          * @param {String} id
          * @returns {Object}
+         * @todo merge find and findByUid methods
          */
         find: function (id) {
             var key,

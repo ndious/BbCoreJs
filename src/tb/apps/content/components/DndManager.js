@@ -19,302 +19,171 @@
 
 define(
     [
-        'tb.core',
         'tb.core.Renderer',
         'jquery',
         'text!content/tpl/dropzone',
         'component!dnd',
-        'content.container',
         'content.manager',
+        'app.content/components/dnd/CommonDnD',
+        'app.content/components/dnd/ContentDrag',
+        'app.content/components/dnd/ContentDrop',
         'jsclass'
     ],
-    function (Core,
-              Renderer,
+    function (Renderer,
               jQuery,
               dropZoneTemplate,
               dnd,
-              ContentContainer,
-              ContentManager
+              ContentManager,
+              CommonDnD,
+              ContentDrag,
+              ContentDrop
             ) {
 
         'use strict';
 
-        var dataTransfer = {},
+        var DndManager = new JS.Class({
 
-            DndManager = new JS.Class({
+            contentClass: 'bb-content',
 
-                contentClass: 'bb-content',
-                identifierDataAttribute: 'bb-identifier',
-                idDataAttribute: 'bb-id',
-                typeDataAttribute: 'bb-type',
-                dndClass: 'bb-dnd',
-                dropZoneAttribute: '*[dropzone="true"]',
-                dropZoneClass: 'bb-dropzone',
+            identifierDataAttribute: 'bb-identifier',
 
-                listen: function () {
-                    this.bindEvents();
-                },
+            idDataAttribute: 'bb-id',
 
-                enable: function (state) {
-                    if (typeof state === 'boolean') {
-                        this.isEnabled = state;
-                    }
-                },
+            typeDataAttribute: 'bb-type',
 
-                bindEvents: function () {
-                    dnd('body').addListeners('classcontent', '.' + this.dndClass);
+            dropZoneAttribute: '*[dropzone="true"]',
 
-                    Core.Mediator.subscribe('on:classcontent:dragstart', this.onDragStart, this);
-                    Core.Mediator.subscribe('on:classcontent:dragover', this.onDragOver, this);
-                    Core.Mediator.subscribe('on:classcontent:drop', this.onDrop, this);
-                    Core.Mediator.subscribe('on:classcontent:dragend', this.onDragEnd, this);
-                },
+            dropZoneClass: 'bb-dropzone',
 
-                /**
-                 * Show the dropzone after and before each children
-                 * @param {Object} contentSets
-                 */
-                showHTMLZoneForContentSet: function (contentSets, currentContentId) {
-                    var key,
-                        contentSet,
-                        children,
-                        firstChild,
-                        div = Renderer.render(dropZoneTemplate, {'class': this.dropZoneClass});
+            dndClass: 'bb-dnd',
 
-                    for (key in contentSets) {
-                        if (contentSets.hasOwnProperty(key)) {
-                            contentSet = contentSets[key];
+            initialize: function () {
+                this.resetDataTransfert();
+                this.common = new CommonDnD();
+                this.drag = new ContentDrag();
+                this.drop = new ContentDrop();
+            },
 
-                            contentSet.isChildrenOf(currentContentId);
-                            if (contentSet.id !== currentContentId && !contentSet.isChildrenOf(currentContentId)) {
+            initDnD: function () {
+                dnd('#block-contrib-tab').addListeners('newclasscontent', '.' + this.dndClass);
+                dnd('#bb5-site-wrapper').addListeners('classcontent', '.' + this.dndClass);
+            },
 
-                                children = contentSet.getNodeChildren();
-                                firstChild = children.first();
+            resetDataTransfert: function () {
+                this.dataTransfer = {
+                    content: {},
+                    identifier: null,
+                    contentSetDroppable: null,
+                    parent: null
+                };
+            },
 
-                                if (firstChild.length > 0) {
-                                    if (undefined !== currentContentId) {
-                                        if (firstChild.data(this.idDataAttribute) !== currentContentId) {
-                                            firstChild.before(div);
-                                        }
-                                    } else {
+            bindEvents: function () {
+                this.common.bindEvents(this);
+                this.drag.bindEvents(this);
+                this.drop.bindEvents(this);
+            },
+
+            unbindEvents: function () {
+                this.common.unbindEvents();
+                this.drag.unbindEvents();
+                this.drop.unbindEvents();
+            },
+
+
+            /**
+             * Show the dropzone after and before each children
+             * @param {Object} contentSets
+             */
+            showHTMLZoneForContentSet: function (contentSets, currentContentId) {
+                var key,
+                    contentSet,
+                    children,
+                    firstChild,
+                    div = Renderer.render(dropZoneTemplate, {'class': this.dropZoneClass});
+
+                for (key in contentSets) {
+                    if (contentSets.hasOwnProperty(key)) {
+                        contentSet = contentSets[key];
+
+                        contentSet.isChildrenOf(currentContentId);
+                        if (contentSet.id !== currentContentId && !contentSet.isChildrenOf(currentContentId)) {
+
+                            children = contentSet.getNodeChildren();
+                            firstChild = children.first();
+
+                            if (firstChild.length > 0) {
+                                if (undefined !== currentContentId) {
+                                    if (firstChild.data(this.idDataAttribute) !== currentContentId) {
                                         firstChild.before(div);
                                     }
                                 } else {
-                                    contentSet.jQueryObject.prepend(div);
+                                    firstChild.before(div);
                                 }
-
-                                this.putDropZoneAroundContentSetChildren(children, div, currentContentId);
+                            } else {
+                                contentSet.jQueryObject.prepend(div);
                             }
+
+                            this.putDropZoneAroundContentSetChildren(children, div, currentContentId);
                         }
-                    }
-                },
-
-                /**
-                 * Put HTML dropzone around the contentset's children
-                 * @param {Object} children
-                 * @param {String} template
-                 * @param {String} currentContentId
-                 */
-                putDropZoneAroundContentSetChildren: function (children, template, currentContentId) {
-                    var self = this;
-
-                    children.each(function () {
-                        var currentTarget = jQuery(this),
-                            next = currentTarget.next('.' + self.contentClass);
-
-                        if (undefined !== currentContentId) {
-                            if (currentTarget.data(self.idDataAttribute) !== currentContentId &&
-                                    next.data(self.idDataAttribute) !== currentContentId) {
-
-                                currentTarget.after(template);
-                            }
-                        } else {
-                            currentTarget.after(template);
-                        }
-                    });
-                },
-
-                /**
-                 * Delete all dropzone
-                 */
-                cleanHTMLZoneForContentset: function () {
-                    jQuery('.' + this.dropZoneClass).remove();
-                },
-
-                /**
-                 * Used into a drop event.
-                 * Verify if current contentset accept the content, create the content
-                 * from api and show him on the html
-                 * @param {Object} config
-                 */
-                doDropNewContent: function (config) {
-                    if (config.type) {
-                        if (ContentContainer.isInArray(dataTransfer.contentSetDroppable, 'type', config.parent.type)) {
-                            ContentManager.createElement(dataTransfer.type).done(function (content) {
-                                config.parent.append(content, config.position);
-                            });
-                        }
-                    }
-                },
-
-                /**
-                 * Return position of element will be dropped
-                 * @param {Object} zone
-                 * @returns {Number}
-                 */
-                getPosition: function (zone) {
-                    var prev = zone.prev('.' + this.contentClass),
-                        parent = zone.parents(this.dropZoneAttribute + ':first'),
-                        contentSet = ContentManager.getContentByNode(parent),
-                        pos = 0;
-
-                    if (prev.length > 0) {
-                        contentSet.getNodeChildren().each(function (key) {
-                            if (this === prev.get(0)) {
-                                pos = key + 1;
-                                return false;
-                            }
-                        });
-                    }
-
-                    return pos;
-                },
-
-                /**
-                 * Used into a drop event.
-                 * Move the content to a new contentset 
-                 * and set updated old contentset
-                 * @param {Object} config
-                 */
-                doDropContent: function (config) {
-                    var content,
-                        oldParent,
-                        oldParentAsContent;
-
-                    if (dataTransfer.id) {
-                        content = ContentContainer.find(dataTransfer.id);
-
-                        oldParent = content.jQueryObject.parents('.' + this.contentClass + ':first');
-
-                        if (oldParent.data(this.idDataAttribute)) {
-                            oldParentAsContent = ContentContainer.find(parent.data(this.idDataAttribute));
-                        } else {
-                            oldParentAsContent = ContentManager.buildElement(parent);
-                        }
-                        oldParentAsContent.setUpdated(true);
-
-                        config.parent.append(content, config.position);
-                    }
-                },
-
-                /***** EVENTS *****/
-
-                /**
-                 * Event trigged on start drag content
-                 * @param {Object} event
-                 */
-                onDragStart: function (event) {
-                    if (this.isEnabled === true) {
-
-                        event.stopPropagation();
-
-                        var target = jQuery(event.target),
-                            identifier = target.data(this.identifierDataAttribute),
-                            content,
-                            id,
-                            img,
-                            type;
-
-                        event.dataTransfer.effectAllowed = 'move';
-
-                        if (identifier) {
-
-                            dataTransfer.onDrop = this.doDropContent;
-
-                            content = ContentManager.getContentByNode(target);
-                            ContentContainer.addContent(content);
-
-                            type = content.type;
-                            id = content.id;
-                            dataTransfer.id = id;
-
-                            img = document.createElement('img');
-                            img.src = content.definition.image;
-
-                            event.dataTransfer.setDragImage(img, 50, 50);
-                        } else {
-                            if (target.data(this.typeDataAttribute)) {
-                                dataTransfer.onDrop = this.doDropNewContent;
-                                type = target.data(this.typeDataAttribute);
-                            }
-                        }
-
-                        dataTransfer.type = type;
-
-                        ContentManager.buildContentSet();
-
-                        dataTransfer.contentSetDroppable = ContentContainer.findContentSetByAccept(type);
-
-                        this.showHTMLZoneForContentSet(dataTransfer.contentSetDroppable, id);
-                    }
-                },
-
-                /**
-                 * Event trigged on drag over dropzone
-                 * @param {Object} event
-                 */
-                onDragOver: function (event) {
-                    if (this.isEnabled === true) {
-                        if (jQuery(event.target).hasClass('bb-dropzone')) {
-                            event.preventDefault();
-                        }
-                    }
-                },
-
-                /**
-                 * Event trigged on drop content
-                 * @param {Object} event
-                 * @returns {Boolean}
-                 */
-                onDrop: function (event) {
-                    if (this.isEnabled === true) {
-                        event.stopPropagation();
-
-                        var target = jQuery(event.target),
-                            config = {},
-                            parent = target.parents(this.dropZoneAttribute + ':first');
-
-                        config.event = event;
-
-                        config.position = this.getPosition(target);
-                        config.parent = ContentManager.getContentByNode(parent);
-                        config.type = dataTransfer.type;
-
-                        dataTransfer.onDrop.call(this, config);
-
-                        return false;
-                    }
-                },
-
-                /**
-                 * Event trigged on drag end content
-                 * @param {Object} event
-                 * @returns {Boolean}
-                 */
-                onDragEnd: function (event) {
-                    if (this.isEnabled === true) {
-                        event.stopPropagation();
-
-                        this.cleanHTMLZoneForContentset();
-
-                        dataTransfer = {};
-
-                        return false;
                     }
                 }
+            },
 
-                /***** EVENTS END *****/
-            });
+            /**
+             * Put HTML dropzone around the contentset's children
+             * @param {Object} children
+             * @param {String} template
+             * @param {String} currentContentId
+             */
+            putDropZoneAroundContentSetChildren: function (children, template, currentContentId) {
+                var self = this;
+
+                children.each(function () {
+                    var currentTarget = jQuery(this),
+                        next = currentTarget.next('.' + self.contentClass);
+
+                    if (undefined !== currentContentId) {
+                        if (currentTarget.data(self.idDataAttribute) !== currentContentId &&
+                                next.data(self.idDataAttribute) !== currentContentId) {
+
+                            currentTarget.after(template);
+                        }
+                    } else {
+                        currentTarget.after(template);
+                    }
+                });
+            },
+
+            /**
+             * Delete all dropzone
+             */
+            cleanHTMLZoneForContentset: function () {
+                jQuery('.' + this.dropZoneClass).remove();
+            },
+
+            /**
+             * Return position of element will be dropped
+             * @param {Object} zone
+             * @returns {Number}
+             */
+            getPosition: function (zone, parent) {
+                var prev = zone.prev('.' + this.contentClass),
+                    contentSet = ContentManager.getContentByNode(parent),
+                    pos = 0;
+
+                if (prev.length > 0) {
+                    contentSet.getNodeChildren().each(function (key) {
+                        if (this === prev.get(0)) {
+                            pos = key + 1;
+                            return;
+                        }
+                    });
+                }
+
+                return pos;
+            }
+        });
 
         return new JS.Singleton(DndManager);
     }
