@@ -19,19 +19,30 @@
 define('tb.core.MediatorMapper', ['tb.core.Api'], function (Api) {
     'use strict';
 
-    var MediatorMapper = function (mapping) {
-    	var context = mapping.context || undefined,
-    		name;
+    var mediatize = function (action, events, context) {
+            var name;
+            require(['tb.core'], function (Core) {
+                for (name in this.events) {
+                    if (this.events.hasOwnProperty(name)) {
+                        Core.Mediator[action](name, this.events[name], this.context);
+                    }
+                }
+            });
+        },
 
-    	require(['tb.core'], function (Core) {
-    		for (name in mapping.events) {
-	    		if (mapping.events.hasOwnProperty(name)) {
-	    			Core.Mediator.subscribe(name, mapping.events[name], context);
-	    		}
-	    	}
-    	});
+        MediatorMapper = function (events, context) {
+        	this.context = context || undefined;
+            this.events = events || {};
+        };
+
+    MediatorMapper.prototype.mappe = function () {
+        mediatize('subscribe', this.events, this.context);
     };
-    
+
+    MediatorMapper.prototype.unmappe = function () {
+        mediatize('unsubscribe', this.events, this.context);
+    };
+
     Api.register('MediatorMapper', MediatorMapper);
 });
 
