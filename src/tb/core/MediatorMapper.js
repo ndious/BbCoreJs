@@ -20,18 +20,18 @@ define('tb.core.MediatorMapper', ['tb.core.Api'], function (Api) {
     'use strict';
 
     var mediatize = function (action, events, context) {
-            var name;
             require(['tb.core'], function (Core) {
-                for (name in this.events) {
-                    if (this.events.hasOwnProperty(name)) {
-                        Core.Mediator[action](name, this.events[name], this.context);
+                var name;
+                for (name in events) {
+                    if (events.hasOwnProperty(name)) {
+                        Core.Mediator[action](name, events[name], context);
                     }
                 }
             });
         },
 
         MediatorMapper = function (events, context) {
-        	this.context = context || undefined;
+            this.context = context || undefined;
             this.events = events || {};
         };
 
