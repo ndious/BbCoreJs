@@ -35,14 +35,13 @@ define('tb.core.MediatorMapper', ['tb.core.Api'], function (Api) {
             this.events = events || {};
         };
 
-    MediatorMapper.prototype.mappe = function () {
+    MediatorMapper.prototype.map = function () {
         mediatize('subscribe', this.events, this.context);
     };
 
-    MediatorMapper.prototype.unmappe = function () {
+    MediatorMapper.prototype.unmap = function () {
         mediatize('unsubscribe', this.events, this.context);
     };
 
     Api.register('MediatorMapper', MediatorMapper);
 });
-
