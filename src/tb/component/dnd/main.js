@@ -64,8 +64,8 @@ define(['tb.core', 'jquery'], function (Core, jQuery) {
         },
 
         attachListeners = function (parent, selector, context) {
-            var draggable = parent.find(selector + '[draggable="true"]'),
-                dropzone = parent.find(selector + '[dropzone="true"]');
+            var draggable = parent.find(selector + '[draggable="true"]:not([data-dnd-attached="true"])'),
+                dropzone = parent.find(selector + '[dropzone="true"]:not([data-dnd-attached="true"])');
 
             context = context || 'undefined';
 
