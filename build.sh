@@ -1,8 +1,8 @@
 #! /bin/bash
 
 echo "Vendor dir creation"
-mkdir vendor
+mkdir dist/vendor
 
 echo "Moving dependencies into vendor dir"
-cp bower_components/* vendor/*
-cp node_modules/jsclass vendor/jsclass
+cp bower_components/* dist/vendor/*
+cp node_modules/jsclass dist/vendor/jsclass
