@@ -1,0 +1,101 @@
+{
+    "app_validate": "Valider",
+
+    "activate": "Activer",
+    "activate_deactivate": "Activer / Désactiver",
+    "add_content": "Ajout d'un contenu",
+    "all": "Tous",
+    "apply_to_all_selected_pages": "Appliquer aux pages sélectionnées",
+    "author": "Auteur",
+    "available_in_menus": "Disponible dans les menus",
+
+    "block": "Bloc",
+
+    "cancel": "Annuler",
+    "clear_all": "Tout supprimer",
+    "content_management": "Gestion de contenus",
+    "contribution": "Contribution",
+    "contents": "Contenus",
+    "create_a_draft": "Créer un brouillon",
+    "create_group": "Créer un groupe",
+    "create_user": "Créer un utilisateur",
+
+    "data_base": "Base de données",
+    "deactivate": "Désactiver",
+    "delete": "Supprimer",
+    "display": "Affichage",
+    "display_external_content": "Affichage de contenu externe",
+    "display_links": "Affichage de liens",
+    "draft": "Brouillon",
+    "duplicate": "Dupliquer",
+
+    "edit": "Éditer",
+    "edition": "Édition",
+    "email": "E-mail",
+    "export": "Exporter",
+    "extensions": "Extensions",
+
+    "filters": "Filtres",
+    "find_users": "Rechercher des utilisateurs",
+
+    "gabarit": "Gabarit",
+    "general_settings": "Paramètres généraux",
+    "group": "Groupe",
+    "groups": "Groupes",
+
+    "import": "Importer",
+
+    "loading": "Chargement",
+
+    "manage": "Administrer",
+    "media": "Médiathèque",
+    "modified_date": "Date de modification",
+    "media": "Média",
+    "media_library": "Médiathèque",
+
+    "new_page": "Nouvelle page",
+    "next": "Suivant",
+    "no_one": "Aucun",
+
+    "online": "En ligne",
+
+    "page": "Page",
+    "pages_management": "Gestion des pages",
+    "page_seo": "Page SEO",
+    "page_status": "Status de la page",
+    "page_tree": "Arborescence de page",
+    "previous": "Précédent",
+    "publishing_archiving": "Publication / Archivage",
+
+    "remove_content_confirmation_message": "Êtes-vous sur de vouloir supprimer ce contenu ?",
+    "remove_group_confirmation_message": "Êtes-vous sur de vouloir supprimer le groupe",
+    "remove_user_confirmation_message": "Êtes-vous sur de vouloir supprimer l'utilisateur",
+    "rename": "Renomer",
+    "restore": "Restaurer",
+    "rights_management": "Gestion des droits",
+    "roles_management": "Gestion des rôles",
+
+    "save": "Sauvegarder",
+    "scheduling": "Planification",
+    "search": "Rechercher",
+    "search_content": "Rechercher un contenu",
+    "see_my_extensions": "Voir mes extensions",
+    "status": "Statut",
+
+    "theme": "Thème",
+    "title": "Titre",
+    "tree": "Arborescence",
+
+    "updated": "Mis(e) à jour",
+    "upload_drop_message": "Glisser le fichier ici ou cliquer pour télécharger",
+    "user": "Utilisateur",
+    "user_filters": "Filtrer les utilisateurs",
+    "users": "Utilisateurs",
+    "users_management": "Gestion des utilisateurs",
+
+    "validate": "Valider",
+
+    "website_parameters": "Paramètres du site",
+    "workflow_management": "Gestion du workflow",
+    "write_and_acces": "doits/accés"
+}

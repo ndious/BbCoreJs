@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-bb5-15">
+        <p>
+            <button id="bundle-toolbar-tree" class="btn btn-simple btn-xs">
+                <i class="fa fa-sitemap"></i> {{ trans('tree') }}
+            </button>
+        </p>
+        <p>
+            <button type="button" class="btn btn-simple btn-xs">
+                <i class="fa fa-search"></i> {{ 'contents'|trans }}
+            </button>
+        </p>
+        <p>
+
+            <a id="btn-show-mediaLibrary" class="btn btn-simple btn-xs">
+                <i class="fa fa-inbox"></i> {{ 'media_library'|trans }}
+            </a>
+
+        </p>
+        <p>
+            <button id="new-page" type="button" class="btn btn-simple btn-xs">
+                <i class="fa fa-file-o"></i> {{ 'new_page'|trans }}
+            </button>
+        </p>
+    </div><!--/ End col-->
+
+    <div class="col-bb5-73 bb5-border-right">
+        <div class="tabs-vertical row">
+            <ul class="nav nav-tabs col-bb5-17" id="edit-tab">
+                <li>
+                    <a href="#content/contribution/edit" data-type="content">{{ 'contents'|trans }}</a>
+                </li>
+                <li>
+                    <a href="#content/contribution/index" data-type="block">{{ 'blocks'|trans }}</a>
+                </li>
+                <li>
+                    <a href="#page/contribution/index" data-type="page">{{ 'page'|trans }}</a>
+                </li>
+            </ul>
+            <div class="tab-content col-bb5-83" id="contrib-tab-apps">
+                <div class="tab-pane" id="content-contrib-tab"></div>
+                <div class="tab-pane" id="block-contrib-tab"></div>
+                <div class="tab-pane" id="page-contrib-tab"></div>
+            </div>
+        </div>
+    </div><!--/ End col-->
+
+    <div class="col-bb5-12">
+        <p>
+            <button id="global-save" type="button" class="btn btn-default-grey btn-sm btn-block">
+                <i class="fa fa-floppy-o"></i> {{ 'save'|trans }}
+            </button>
+        </p>
+        <p>
+            <button id="bundle-toolbar-global-validate" type="button" class="btn btn-default-grey btn-sm btn-block">
+                <i class="fa fa-floppy-o"></i> {{ 'validate'|trans }}
+            </button>
+        </p>
+        <p>
+            <button id="bundle-toolbar-global-cancel" type="button" class="btn btn-default-grey btn-sm btn-block">
+                <i class="fa fa-share"></i> {{ 'cancel'|trans }}
+            </button>
+        </p>
+    </div><!--/ End col-->
+
+</div>

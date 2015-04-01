@@ -1,0 +1,10 @@
+<label for="{{ element.getKey() }}" class="label">{{ element.getLabel() }}</label>
+<input type="text"
+       name="{{ element.getKey() }}"
+       {% if element.isDisabled() %}disabled{% endif %}
+       value="{{ element.getValue() }}"
+       class="form-control"
+       >
+{% if element.getError() != null %}
+    <span class="help-block">{{ element.getError() }}</span>
+{% endif %}

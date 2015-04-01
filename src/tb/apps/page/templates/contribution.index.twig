@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-bb5-56 bb5-border-right">
+        <p>{{ 'page_status'|trans }} :
+            <select id="page-state-select" class="form-inline input-xs" name="state">
+                {% for state in states %}
+                    <option {% if page.state_code == state.code %}selected{% endif %} value="{{ state.code }}">{{ state.label }}</option>
+                {% endfor %}
+            </select>
+            <button id="contribution-seo-page" type="button" class="btn btn-default-grey btn-xs">{{ 'page_seo'|trans }}</button>
+        </p>
+        <p>
+            <label>
+                <input {% if page.is_hidden == false %}checked{% endif %} id="page-visibility-input" type="checkbox" name="menu_visibility" /> {{ 'available_in_menus'|trans }}
+            </label>
+        </p>
+        <p class="position-bottom">
+            {{ 'scheduling'|trans }} :
+            <span id="contribution-scheduling-state">{{ 'no_one'|trans }}</span>
+            <button id="contribution-scheduling-btn" type="button" class="btn btn-transparent btn-xs btn-toggle btn-show">
+                <i class="fa fa-angle-down"></i> {{ 'publishing_archiving'|trans }}
+            </button>
+        </p>
+    </div>
+    <div class="col-bb5-24 bb5-border-right">
+        <p>
+            <button type="button" class="btn btn-simple btn-xs btn-block">
+                <i class="fa fa-pencil-square-o"></i> {{ 'create_a_draft'|trans }}
+            </button>
+        </p>
+        <p>
+            <button id="contribution-clone-page" type="button" class="btn btn-simple btn-xs btn-block">
+                <i class="fa fa-file-o"></i> {{ 'duplicate'|trans }}
+            </button>
+        </p>
+        <p>
+            <button id="contribution-delete-page" type="button" class="btn btn-simple btn-xs btn-block">
+                <i class="fa fa-trash-o"></i> {{ 'delete'|trans }}
+            </button>
+        </p>
+        <p>
+            <button id="contribution-edit-page" type="button" class="btn btn-simple btn-xs btn-block">
+                <i class="fa fa-pencil-square-o"></i> {{ 'edit'|trans }}
+            </button>
+        </p>
+    </div>
+    <div class="col-bb5-20">
+        <p>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="grid"> {{ 'display'|trans }}
+            </label>
+        </p>
+        <p>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="grid"> {{ 'display_external_content'|trans }}
+            </label>
+        </p>
+        <p>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="grid"> {{ 'display_links'|trans }}
+            </label>
+        </p>
+    </div>
+</div><!--/.row-->

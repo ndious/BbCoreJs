@@ -1,0 +1,84 @@
+<div id="content-library" style="height: 100%;">
+  <div id="content-library-pane-wrapper" class="bb5-windowpane-wrapper windowpane-treeview" style="height: 100%;">
+    <div class="bb5-windowpane-tree ui-layout-pane ui-layout-west">
+
+      {{ 'tree'|trans }}
+
+    </div>
+    <div class="bb5-windowpane-main ui-layout-pane ui-layout-center">
+
+      <div class="ui-layout-north">
+
+        <div class="row">
+          <div class="col-bb5-100">
+            <div class="bb5-widget-toolbar list-options clearfix">
+              <ul class="pagination clearfix">
+                <li><a href="#" class="bb5-pagination-btn"><i class="fa fa-angle-double-left"></i></a></li>
+                <li><a href="#" class="bb5-pagination-btn bb5-pagination-prev"><i class="fa fa-angle-left"></i></a></li>
+                <li><span class="bb5-pagination-current">1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" class="bb5-pagination-btn bb5-pagination-next"><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="#" class="bb5-pagination-btn"><i class="fa fa-angle-double-right"></i></a></li>
+              </ul>
+              <p class="pull-right">
+                <select class="max-per-page-selector input-xs">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+                  <option value="80">80</option>
+                  <option value="100">100</option>
+                </select>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div><!--/.ui-layout-north-->
+
+
+      <div class="inner-center layout-overflow-scroll">
+        <div class="bb5-list-data-toolbar bb5-toolbar-order">
+          <div class="row">
+            <p class="bb5-toolbar-order-col col-bb5-27"><input type="checkbox"> <a href="#">{{ 'title'|trans }} <i class="fa fa-angle-down"></i></a></p>
+            <p class="bb5-toolbar-order-col col-bb5-21"><a href="#">{{ 'status'|trans }} <i class="fa fa-angle-down"></i></a></p>
+            <p class="bb5-toolbar-order-col col-bb5-21"><a href="#">{{ 'author'|trans }} <i class="fa fa-angle-down"></i></a></p>
+            <p class="bb5-toolbar-order-col col-bb5-6">{{ 'edit'|trans }} </p>
+            <p class="bb5-toolbar-order-col col-bb5-20"><a href="#">{{ 'updated'|trans }} <i class="fa fa-angle-down"></i></a></p>
+            <p class="bb5-toolbar-order-col col-bb5-5"></p>
+          </div>
+        </div><!--/.bb5-list-data-toolbar-->
+        <ul class="bb5-list-data bb5-list-display-list clearfix">
+
+
+        {% for page in pages %}
+            <li class="bb5-list-data-item">
+                <p class="col-bb5-27"><label><input type="checkbox">{{ page.title }}</label></p>
+                <p class="col-bb5-21"><span class="bb5-button-selector"><a href="#" class="btn btn-default btn-sm fa fa-angle-left"><span class="sr-only">{{ 'previous'|trans }}</span></a> <span class="bb5-button-selector-status">{{ 'online'|trans }}</span> <a href="#" class="btn btn-default btn-sm fa fa-angle-right"><span class="sr-only">{{ 'next'|trans }}</span></a></span></p>
+                <p class="col-bb5-21">L.Ipsum</p>
+                <p class="col-bb5-6"><button type="button" class="btn btn-default btn-sm btn-edit"><i class="fa fa-pencil"></i></button></p>
+                <p class="col-bb5-20">{{ page.date }}</p>
+                <p class="col-bb5-5"><button type="button" class="btn btn-delete btn-default btn-sm"><i class="fa fa-trash-o"></i></button></p>
+            </li>
+        {% endfor %}
+
+
+        </ul><!--/.bb5-list-users : list -->
+
+      </div><!--/.inner-center-->
+
+      <div class="ui-layout-south">
+        <p class="selection-toolbar"><i class="fa fa-level-up fa-rotate-90"></i> {{ 'apply_to_all_selected_pages'|trans }}
+          <select class="max-per-page-selector input-xs">
+            <option value="5">{{ 'draft'|trans }}</option>
+            <option value="5">{{ 'draft'|trans }}</option>
+            <option value="5">{{ 'draft'|trans }}</option>
+          </select></p>
+      </div><!--/.ui-layout-south-->
+
+    </div>
+  </div>
+</div><!--id:content-library-->

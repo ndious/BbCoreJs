@@ -1,0 +1,8 @@
+<label class="label">{{ element.getLabel() }}</label>
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-default node-selector-btn" type="button"><i class="fa fa-columns"></i></button>
+    </span>
+    <input type="text" disabled class="form-control">
+    <input type="hidden" name="{{ element.getKey() }}" value="{{ element.getValue() }}" class="form-control">
+</div><!-- /input-group -->

@@ -1,0 +1,12 @@
+<div class="dropzone-area">
+    <label for="{{ element.getKey() }}" class="label">{{ element.getLabel() }}</label>
+    <div class="dropzone dropzone-file">
+    </div>
+    <input type="hidden" name="{{ element.getKey() }}" />
+    <span class="{{ element.getKey() }}_path hidden"></span>
+    <span class="{{ element.getKey() }}_src hidden"></span>
+    <span class="{{ element.getKey() }}_originalname hidden"></span>
+    {% if element.getError() != null %}
+        <span class="help-block">{{ element.getError() }}</span>
+    {% endif %}
+</div>

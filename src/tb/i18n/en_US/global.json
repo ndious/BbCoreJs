@@ -1,0 +1,108 @@
+{
+    "app_validate": "Validate",
+    "app_only_default": "Only default",
+
+    "activate": "Activate",
+    "activate_deactivate": "Activate / Deactivate",
+    "add_content": "Add content",
+    "all": "All",
+    "apply_to_all_selected_pages": "Apply to all selected pages",
+    "author": "Author",
+    "available_in_menus": "Available in menus",
+
+    "block": "Block",
+
+    "cancel": "Cancel",
+    "clear_all": "Clear all",
+    "content_management": "Content management",
+    "contribution": "Contribution",
+    "contents": "Contents",
+    "create_a_draft": "Create a draft",
+    "create_group": "Create group",
+    "create_user": "Create user",
+    "creation_date": "Creation date",
+    "current_directory": "Current directory",
+
+    "data_base": "Data base",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "display": "Display",
+    "display_external_content": "Display external content",
+    "display_links": "Display links",
+    "draft": "Draft",
+    "duplicate": "Duplicate",
+
+    "edit": "Edit",
+    "edition": "Edition",
+    "email": "E-mail",
+    "export": "Export",
+    "extensions": "Extensions",
+    "external_link": "External link",
+
+    "filters": "Filters",
+    "find_users": "Find users",
+
+    "gabarit": "Template",
+    "general_settings": "General Settings",
+    "group": "Group",
+    "groups": "Groups",
+
+    "import": "Import",
+    "internal_link": "Internal link",
+
+    "link_selector_label": "Link Selector",
+    "loading": "Loading",
+
+    "manage": "Manage",
+    "media": "Media",
+    "media_library": "Media library",
+    "modified_date": "Modified date",
+
+    "new_page": "New page",
+    "next": "Next",
+    "no_one": "No one",
+
+    "online": "Online",
+
+    "page": "Page",
+    "pages_management": "Pages management",
+    "page_seo": "Page SEO",
+    "page_status": "Page status",
+    "page_tree": "Page tree",
+    "previous": "Previous",
+    "publishing_archiving": "Publishing / Archiving",
+
+    "remove_content_confirmation_message": "Do you want remove this content ?",
+    "remove_group_confirmation_message": "Do you want remove the group",
+    "remove_user_confirmation_message": "Do you want remove the user",
+    "rename": "Rename",
+    "restore": "Restore",
+    "rights_management": "Rights management",
+    "roles_management": "Roles management",
+
+    "save": "Save",
+    "scheduling": "Scheduling",
+    "search": "Search",
+    "search_content": "Search content",
+    "see_my_extensions": "See my extensions",
+    "select": "Select",
+    "show_folder": "Show folder",
+    "status": "Status",
+
+    "theme": "Theme",
+    "title": "Title",
+    "tree": "Tree",
+
+    "updated": "Updated",
+    "upload_drop_message": "Drop files here or click to upload.",
+    "url_required": "Url is required",
+    "user": "User",
+    "user_filters": "User filters",
+    "users": "Users",
+    "users_management": "Users management",
+
+    "validate": "Validate",
+
+    "website_parameters": "Website parameters",
+    "workflow_management": "Workflow management"
+}

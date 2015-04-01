@@ -1,0 +1,10 @@
+<li data-uid={{uid}} class="bb5-selector-item">
+<p><a title="{{label}}" href="javascript:;"><img alt="{{label}}" src="{{image}}"></a></p>
+<p><a title="{{label}}" href="javascript:;">{{label}}</a></p>
+<p></p>
+<p>
+<button class="btn btn-simple btn-xs show-content-btn"><i class="fa fa-eye"></i> See</button>
+<button class="btn btn-simple btn-xs addandclose-btn"><i class="fa fa-plus"></i> Select and close</button>
+<button class="btn btn-simple btn-xs del-content-btn"><i class="fa fa-trash-o"></i> Delete</button>
+</p>
+</li>

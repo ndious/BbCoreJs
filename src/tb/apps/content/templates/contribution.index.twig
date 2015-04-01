@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-bb5-80 bb5-border-right">
+        <div class="row">
+            <div class="col-bb5-40">
+                <p>
+                    <select class="form-inline input-xs" name="[]" id="select-categories-blocks-contrib">
+                        <option value="">Category blocks</option>
+                        {% for category in categories %}
+                            {% if category.show %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    <button id="palette-contrib-blocks"type="button" class="btn btn-default-grey btn-xs">Pallet blocks</button>
+                </p>
+            </div>
+            <div class="col-bb5-60">
+                <p>
+                    <strong>Select a block</strong>
+                </p>
+                <div>
+                    <div id="carousel-blocks" class="carousel slide bb5-ui-carousel" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner" id="carousel-contrib-blocks"></div>
+                        <a class="left carousel-control" href="#carousel-blocks-choice" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-blocks-choice" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-bb5-20">
+        <p><label class="checkbox-inline"><input type="checkbox" name="grid"> {{ trans('display') }}</label></p>
+        <p><label class="checkbox-inline"><input type="checkbox" name="grid"> {{ trans('display_external_content') }}</label></p>
+        <p><label class="checkbox-inline"><input type="checkbox" name="grid"> {{ trans('display_links') }}</label></p>
+    </div>
+</div>

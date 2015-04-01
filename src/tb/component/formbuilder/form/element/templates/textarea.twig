@@ -1,0 +1,5 @@
+<label for="{{ element.getKey() }}" class="label">{{ element.getLabel() }}</label>
+<textarea name="{{ element.getKey() }}"
+          {% if element.isDisabled() %}disabled{% endif %}
+          class="form-control"
+          rows="{{ element.getRows() }}">{{ element.getValue() }}</textarea>

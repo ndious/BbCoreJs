@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jasmine Spec Runner</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/grunt-contrib-jasmine/vendor/jasmine-2.0.0/jasmine.css">
+    <link rel="shortcut icon" type="image/png" href="vendor/jasmine_favicon.png">
+</head>
+<body>
+    <h1>Toolbar specs</h1>
+
+    <div id="sandbox" style="overflow: hidden; height: 1px;"></div>
+
+    <script type="text/javascript" src="node_modules/grunt-contrib-jasmine/vendor/jasmine-2.0.0/jasmine.js"></script>
+    <script type="text/javascript" src="node_modules/grunt-contrib-jasmine/vendor/jasmine-2.0.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="node_modules/grunt-contrib-jasmine/vendor/jasmine-2.0.0/boot.js"></script>
+    <script src="lib/requirejs/require.js"></script>
+    <script src="specs/require.config.js"></script>
+
+    <script src="SpecRunner.js"></script>
+    <script type="text/javascript">
+        require(['underscore', 'jquery'], function (_, jQuery) {
+            jQuery(function() {
+                jasmine.getEnv().addReporter(new jasmine.HtmlReporter({}));
+
+                var specs = [];
+
+                specs.push('spec/tb/core/Api.spec');
+
+                jQuery(function () {
+                    require(specs, function () {
+                        jasmineEnv.execute();
+                    });
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

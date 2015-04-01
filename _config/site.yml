@@ -1,0 +1,9 @@
+profiles:
+  composer:
+    base_url: http://github.com/ndufreche/BbCoreJs
+    deploy:
+      host: github_pages
+      # use gh-branch for repositories other than <username>.github.io
+      branch: dist
+      # use master branch for <username>.github.io repository
+      branch: master
