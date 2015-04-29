@@ -43,7 +43,7 @@ define(['jquery', 'text!content/tpl/content-action', 'jsclass'], function (jQuer
             jQuery.each(actions, function (i) {
                 actionInfos = actions[i];
 
-                var button = jQuery("<button></button>").clone();
+                var button = jQuery("<a></a>").clone();
                 button.attr("title", actionInfos.label);
                 button.attr('draggable', 'true');
                 button.addClass(actionInfos.ico);
