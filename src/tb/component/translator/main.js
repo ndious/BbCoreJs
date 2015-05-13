@@ -120,7 +120,7 @@ define('tb.component/translator/main', ['component!logger', 'jquery', 'Core'], f
                 var self = this;
 
                 jQuery.ajax({
-                    'url': self.base + '/' + locale + '/global.json',
+                    'url': '/' + self.base + '/' + locale + '/global.json',
                     'data': 'json',
                     'async': false
                 }).done(function (response) {
