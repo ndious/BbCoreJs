@@ -310,7 +310,6 @@ define(['Core', 'jquery', 'Core/Utils', 'Core/Api', 'actionContainer', 'jsclass'
                 e.preventDefault();
 
                 var plugins, context = {};
-
                 if (this.currentContent === null ||
                         this.currentContent.id !== content.id ||
                         this.contentActionWidget.isBuild(content) === false) {
@@ -334,7 +333,7 @@ define(['Core', 'jquery', 'Core/Utils', 'Core/Api', 'actionContainer', 'jsclass'
 
                         this.initPlugins(plugins);
                     } catch (expect) {
-                        Api.exception('PluginException', 75009, expect);
+                        Api.exception('PluginException', 75009, expect, {content: content, event: e});
                     }
 
                     this.currentContent = content;
