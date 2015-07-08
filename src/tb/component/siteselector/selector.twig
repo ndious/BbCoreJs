@@ -1,0 +1,7 @@
+<div id="{{ identifier }}" class="site-selector">
+    <select>
+        {% for site in sites %}
+            <option value="{{ site.id }}">{{ site.label }}</option>
+        {% endfor %}
+    </select>
+</div>
