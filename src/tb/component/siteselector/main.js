@@ -1,28 +1,31 @@
 define(
     'tb.component/siteselector/main',
     [
-        'CoreRenderer',
+        'Core/Renderer',
         'Core/DriverHandler',
         'Core/RestDriver',
-        'text!tb.component/siteselector/selector.twig'
-        'jQuery'
+        'text!tb.component/siteselector/selector.twig',
+        'jquery'
     ],
     function (Renderer, CoreDriverHandler, CoreRestDriver, tpl, jQuery) {
         'use strict';
 
         var sites = [],
-            dfd = jQuery.deferred(),
-            exposeApi = function () {
+            dfd = jQuery.Deferred(),
+            exposeApi = function (sitesAvailable) {
                 var api = {
                     identifier: 'site-selector',
-                    sites: [],
+                    sites: sitesAvailable,
                     render: function (identifier) {
                         this.identifier = identifier || this.identifier;
                         return Renderer.render(tpl, {id: this.identifier, sites: this.sites});
                     },
                     getSelected: function () {
-                        var selected = jQuery('#' . this.identifier . ' option[selected="selected"]');
+                        var selected = this.getJqueryElement();
                         return selected.val();
+                    },
+                    getJqueryElement: function () {
+                        return jQuery('#' + this.identifier + ' option[selected="selected"]');
                     }
                 };
                 api.sites = sites;
@@ -33,6 +36,7 @@ define(
             CoreDriverHandler.addDriver('rest', CoreRestDriver);
             CoreDriverHandler.read('site').then(
                 function(sitesAvailable) {
+                    console.log(sitesAvailable);
                     sites = sitesAvailable;
                     dfd.resolve(exposeApi(sitesAvailable));
                 },
