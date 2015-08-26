@@ -26,7 +26,8 @@ define(
         'component!notify',
         'text!bundle/templates/admin.twig',
         'Core/DriverHandler',
-        'Core/RestDriver'
+        'Core/RestDriver',
+        'component!session'
     ],
     function (require, Core, Renderer, jQuery, PopinManager, Notify) {
         'use strict';
@@ -120,19 +121,56 @@ define(
                 this.sendRequest(method, link, postParams);
             },
 
+            bindFileUpload: function (uploadElems) {
+
+                [].forEach.call(uploadElems, function (el) {
+                    var id = el.getAttribute('data-file-upload'),
+                        dropzone = new Dropzone(el, {
+                        url: Core.get('api_base_url') + 'resource/upload',
+                        dictDefaultMessage: 'Drop files here or click to upload.',
+                        addRemoveLinks: true,
+                        maxFiles: 1,
+                        thumbnailWidth: 200
+                    });
+                    dropzone.on('sending', function (file, xhr) {
+                        var session = require('component!session');
+                        var items = el.find('.dz-preview');
+                        xhr.setRequestHeader(session.HEADER_API_KEY, session.key);
+                        xhr.setRequestHeader(session.HEADER_API_SIGNATURE, session.signature);
+
+                        if (items.length > 1) {
+                            if (typeof self.element.value === 'object') {
+                                items.first().remove();
+                            }
+                        }
+                        return file;
+                    });
+                    dropzone.on('success', function (file, response) {
+                        jQuery('#' + id).val(response.filename);
+                        jQuery('#' + id + '-path').val(response.path);
+                        jQuery('#' + id + '-original-name').val(response.originalname);
+
+                        el.val('updated');
+                        return file;
+                    });
+                });
+            },
+
             bindAction: function () {
-                var self = this;
+                var uploadElems = jQuery('#bundle-admin-popin .bundle-admin-dropzone[data-file-upload]');
                 jQuery('#bundle-admin-popin [data-bundle="link"]').click(function (event) {
                     event.preventDefault();
-                    self.popin.mask();
-                    self.triggerLink(event);
-                });
+                    this.popin.mask();
+                    this.triggerLink(event);
+                }.bind(this));
                 jQuery('#bundle-admin-popin [data-bundle="form"]').submit(function (event) {
                     event.preventDefault();
-                    self.popin.mask();
-                    self.triggerSubmit(event);
-                });
-
+                    this.popin.mask();
+                    this.triggerSubmit(event);
+                }.bind(this));
+                if(uploadElems.length !== 0) {
+                   this.bindFileUpload(uploadElems);
+                }
             },
 
             updateContent: function (content) {
